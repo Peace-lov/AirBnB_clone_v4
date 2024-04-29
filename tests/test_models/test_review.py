@@ -27,4 +27,3 @@ class test_review(test_basemodel):
         """test for text"""
         alx = self.value()
         self.assertEqual(type(alx.text), str)
-

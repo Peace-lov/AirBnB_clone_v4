@@ -57,7 +57,7 @@ class FileStorage:
                     v = eval(v["__class__"])(**v)
                     self.__objects[k] = v
         except FileNotFoundError:
-            pass
+            Exception
 
     def delete(self, obj=None):
         """ delete an existing element
@@ -69,3 +69,19 @@ class FileStorage:
     def close(self):
         """ calls rmeove() method on session attribute """
         self.reload()
+
+    def count(self, cls=None):
+        """ counts """
+        data = self.all(cls)
+        if cls in classes.values():
+            data = self.all(cls)
+        return len(data)
+
+    def get(self, cls, id):
+        """ retrieves """
+        if cls in classes.values() and id and type(id) == str:
+            d_obj = self.all(cls)
+            for key, value in d_obj.items():
+                if key.split(".")[1] == id:
+                    return value
+        return None 

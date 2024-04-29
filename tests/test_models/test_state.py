@@ -17,4 +17,3 @@ class test_state(test_basemodel):
         """ Test the name of state"""
         new = self.value()
         self.assertEqual(type(new.name), str)
-
