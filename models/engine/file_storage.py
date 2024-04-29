@@ -71,11 +71,16 @@ class FileStorage:
         self.reload()
 
     def count(self, cls=None):
-        """ counts """
-        data = self.all(cls)
-        if cls in classes.values():
-            data = self.all(cls)
-        return len(data)
+        """
+        Returns the number of objects in storage matching the given class name.
+   	"""
+        if cls:
+            counter = 0
+            for obj in self.__objects.values():
+                if obj.__class__.__name__ == cls:
+                    counter += 1
+            return counter
+        return len(self.__objects)
 
     def get(self, cls, id):
         """ retrieves """

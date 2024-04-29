@@ -11,6 +11,8 @@ from models.user import User
 from models.place import Place
 from models.review import Review
 from models.amenity import Amenity
+classes = {"Amenity": Amenity, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
 
 
 class DBStorage:
@@ -85,8 +87,11 @@ class DBStorage:
         return None
 
     def count(self, cls=None):
-        """ function that ocunts """
-        data = self.all(cls)
-        if cls in classes.values():
-            data = self.all(cls)
-        return len(data) 
+        """
+        Returns the number of objects in storage matching the given class name.
+        """
+        nobjects = 0
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                nobjects += len(self.__session.query(classes[clss]).all())
+        return nobjects
